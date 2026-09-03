@@ -1,5 +1,7 @@
 # pdatahub-plugin-template
 
+[![CI](https://github.com/pdatahub/pdatahub-plugin-template/actions/workflows/ci.yml/badge.svg)](https://github.com/pdatahub/pdatahub-plugin-template/actions/workflows/ci.yml)
+
 Template for [pdatahub](https://github.com/pdatahub/pdatahub) plugins. Click **"Use this template"** on GitHub to create your own plugin repository.
 
 ## What is a pdatahub plugin?
