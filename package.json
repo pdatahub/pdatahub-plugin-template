@@ -1,0 +1,37 @@
+{
+  "name": "pdatahub-plugin-template",
+  "version": "0.1.0",
+  "description": "Template for pdatahub plugins — copy this repo to start your own",
+  "main": "dist/plugin.js",
+  "types": "dist/plugin.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "echo 'lint TBD'",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist coverage"
+  },
+  "keywords": [
+    "pdatahub",
+    "plugin",
+    "mcp"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@pdatahub/plugin-sdk": "^0.1.0",
+    "undici": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
