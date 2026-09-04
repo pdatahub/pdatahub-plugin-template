@@ -8,7 +8,7 @@
  * To customize:
  *   1. Rename the class and update `name` / `version`
  *   2. Add your own `@Tool` methods
- *   3. (Optional) Add `@OAuth` for authenticated APIs
+ *   3. (Optional) Add `@OAuth` for authenticated APIs (Hub handles the dance)
  *   4. Update input schema and scope to match your domain
  *
  * Plugin naming convention (see pdatahub docs):
@@ -19,6 +19,11 @@
  *   google-calendar → tool "calendar.read.events"
  *   slack           → tool "messages.list"
  *   github          → tool "issues.list", "prs.merge"
+ *
+ * IMPORTANT: clientId / clientSecret are NOT in `@OAuth` — those are Hub
+ * concerns (stored encrypted in Hub's TokenDao). Plugin only declares the
+ * OAuth endpoints. Hub does the dance, stores tokens, injects access_token
+ * via `this.httpClient` on every `tools/call`.
  */
 
 import { Plugin, Tool } from '@pdatahub/plugin-sdk';
@@ -30,7 +35,7 @@ export default class ExamplePlugin extends Plugin {
   /**
    * Fetch a random cat fact from a public API. Demonstrates:
    *   - `@Tool` decorator
-   *   - `this.http.get()` with params
+   *   - `this.httpClient.get()` with params
    *   - Returning parsed JSON
    *
    * Replace this with your own tool.
@@ -40,7 +45,7 @@ export default class ExamplePlugin extends Plugin {
     description: 'Fetch a random cat fact. Useful for smoke-testing plugin wiring.',
   })
   async getCatFact(): Promise<{ fact: string; length: number }> {
-    const { data } = await this.http!.get<{ fact: string; length: number }>(
+    const { data } = await this.httpClient!.get<{ fact: string; length: number }>(
       'https://catfact.ninja/fact',
     );
     return data;
@@ -48,13 +53,13 @@ export default class ExamplePlugin extends Plugin {
 
   /**
    * Example showing how to add OAuth. Uncomment and customize for your provider.
+   * Note: NO clientId / clientSecret — Hub handles OAuth dance and stores
+   * tokens in its encrypted TokenDao. Your plugin just declares endpoints.
    *
   @OAuth({
     authorizationUrl: 'https://provider.com/oauth/authorize',
     tokenUrl: 'https://provider.com/oauth/token',
     scopes: ['read:user', 'read:data'],
-    clientId: process.env.PROVIDER_CLIENT_ID,
-    clientSecret: process.env.PROVIDER_CLIENT_SECRET,
   })
   // And one of the tools:
   @Tool({
@@ -62,7 +67,7 @@ export default class ExamplePlugin extends Plugin {
     description: 'Read the authenticated user profile.',
   })
   async getMe() {
-    const { data } = await this.http!.get('https://api.provider.com/v1/me');
+    const { data } = await this.httpClient!.get('https://api.provider.com/v1/me');
     return data;
   }
   */

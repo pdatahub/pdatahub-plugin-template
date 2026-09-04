@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@pdatahub/plugin-sdk':
-        specifier: file:../pdatahub/packages/plugin-sdk
-        version: file:../pdatahub/packages/plugin-sdk
+        specifier: https://github.com/pdatahub/pdatahub/releases/download/v0.1.0/pdatahub-plugin-sdk-0.1.0.tgz
+        version: https://github.com/pdatahub/pdatahub/releases/download/v0.1.0/pdatahub-plugin-sdk-0.1.0.tgz
       undici:
         specifier: ^6.0.0
         version: 6.28.0
@@ -178,8 +178,9 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@pdatahub/plugin-sdk@file:../pdatahub/packages/plugin-sdk':
-    resolution: {directory: ../pdatahub/packages/plugin-sdk, type: directory}
+  '@pdatahub/plugin-sdk@https://github.com/pdatahub/pdatahub/releases/download/v0.1.0/pdatahub-plugin-sdk-0.1.0.tgz':
+    resolution: {tarball: https://github.com/pdatahub/pdatahub/releases/download/v0.1.0/pdatahub-plugin-sdk-0.1.0.tgz}
+    version: 0.1.0
     engines: {node: '>=20.0.0'}
 
   '@rollup/rollup-android-arm-eabi@4.63.1':
@@ -716,7 +717,7 @@ snapshots:
   '@napi-rs/lzma-linux-x64-gnu@1.5.1':
     optional: true
 
-  '@pdatahub/plugin-sdk@file:../pdatahub/packages/plugin-sdk':
+  '@pdatahub/plugin-sdk@https://github.com/pdatahub/pdatahub/releases/download/v0.1.0/pdatahub-plugin-sdk-0.1.0.tgz':
     dependencies:
       undici: 6.28.0
 
