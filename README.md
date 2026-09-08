@@ -134,7 +134,7 @@ Use `:` as separator. Lowercase.
 ┌──────────────┐  JSON-RPC   ┌─────────────┐  HTTPS  ┌──────────────┐
 │  pdatahub    │ ◄─────────► │ Your plugin │ ──────► │   Provider   │
 │  Hub         │  over stdio │ (subprocess)│         │   API        │
-│ (Android)    │             └─────────────┘         └──────────────┘
+│ (laptop/cloud)            └─────────────┘         └──────────────┘
 └──────────────┘
 ```
 
@@ -168,6 +168,10 @@ const plugin = new MyPlugin();
 ## Reference plugins
 
 - [`pdatahub-plugin-google-calendar`](https://github.com/pdatahub/pdatahub-plugin-google-calendar) — reference implementation with real OAuth
+
+## Documentation
+
+For deeper coverage of plugin development (decorators, OAuth integration, distribution, best practices), see the [pdatahub plugin author guide](https://github.com/pdatahub/pdatahub/blob/main/docs/plugin-author-guide.md) in the monorepo.
 
 ## License
 
