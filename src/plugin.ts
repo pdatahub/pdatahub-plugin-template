@@ -1,15 +1,20 @@
 /**
  * Example plugin — replace this with your own.
  *
- * This plugin demonstrates:
- *   1. A simple `@Tool` that hits a public HTTP API (no auth required)
- *   2. A commented-out `@OAuth` decorator showing how to wire OAuth
+ * Demonstrates the SDK v2 protocol:
+ *   - `protocolVersion = 2 as const` opts in to typed errors + schema validation
+ *   - `capabilities = [...]` advertises which v2 features this plugin uses
+ *   - `@Tool({ inputSchema })` declares a JSON Schema for tool inputs (required
+ *     for Federation v2 — the Hub embeds the schema in the signed delegation
+ *     blob)
+ *   - `this.httpClient.get()` uses the per-request HTTP client (Hub injects
+ *     OAuth access_token automatically)
  *
  * To customize:
  *   1. Rename the class and update `name` / `version`
- *   2. Add your own `@Tool` methods
+ *   2. Add your own `@Tool` methods (with inputSchema!)
  *   3. (Optional) Add `@OAuth` for authenticated APIs (Hub handles the dance)
- *   4. Update input schema and scope to match your domain
+ *   4. Update scope to match your domain
  *
  * Plugin naming convention (see pdatahub docs):
  *   - Plugin identity is provider-specific: pdatahub-plugin-<provider>
@@ -30,12 +35,16 @@ import { Plugin, Tool } from '@pdatahub/plugin-sdk';
 
 export default class ExamplePlugin extends Plugin {
   name = 'example';
-  version = '0.1.0';
+  version = '0.2.0';
+  /** SDK v2 — typed errors, schema validation, lifecycle hooks. */
+  protocolVersion = 2 as const;
+  /** Advertise which v2 capabilities this plugin uses. */
+  capabilities = ['typed-errors', 'schema-validation'] as const;
 
   /**
    * Fetch a random cat fact from a public API. Demonstrates:
-   *   - `@Tool` decorator
-   *   - `this.httpClient.get()` with params
+   *   - `@Tool` decorator with `inputSchema` (required for v2 + Federation)
+   *   - `this.httpClient.get()` with no auth (public API)
    *   - Returning parsed JSON
    *
    * Replace this with your own tool.
@@ -43,6 +52,11 @@ export default class ExamplePlugin extends Plugin {
   @Tool({
     scope: 'facts:read',
     description: 'Fetch a random cat fact. Useful for smoke-testing plugin wiring.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+      additionalProperties: false,
+    },
   })
   async getCatFact(): Promise<{ fact: string; length: number }> {
     const { data } = await this.httpClient!.get<{ fact: string; length: number }>(
@@ -61,10 +75,14 @@ export default class ExamplePlugin extends Plugin {
     tokenUrl: 'https://provider.com/oauth/token',
     scopes: ['read:user', 'read:data'],
   })
-  // And one of the tools:
   @Tool({
     scope: 'user:read',
     description: 'Read the authenticated user profile.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+      additionalProperties: false,
+    },
   })
   async getMe() {
     const { data } = await this.httpClient!.get('https://api.provider.com/v1/me');
