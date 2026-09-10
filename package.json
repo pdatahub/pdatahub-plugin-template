@@ -26,7 +26,7 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@pdatahub/plugin-sdk": "https://github.com/pdatahub/pdatahub/releases/download/sdk-v0.2.1/pdatahub-plugin-sdk-0.2.1.tgz",
+    "@pdatahub/plugin-sdk": "https://github.com/pdatahub/pdatahub/releases/download/sdk-v0.2.2/pdatahub-plugin-sdk-0.2.2.tgz",
     "undici": "^6.0.0"
   },
   "devDependencies": {
