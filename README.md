@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Node 20+](https://img.shields.io/badge/node-20%2B-green)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/typescript-5.x-3178C6)](https://www.typescriptlang.org)
-[![SDK v0.2.2](https://img.shields.io/badge/SDK-v0.2.2-blue)](https://github.com/pdatahub/pdatahub/releases/tag/sdk-v0.2.2)
+[![SDK v0.2.2](https://img.shields.io/badge/SDK-v0.2.3-blue)](https://github.com/pdatahub/pdatahub/releases/tag/sdk-v0.2.2)
 
 Template for [pdatahub](https://github.com/pdatahub/pdatahub) plugins. Click **"Use this template"** on GitHub to create your own plugin repository.
 
