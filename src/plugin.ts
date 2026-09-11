@@ -90,3 +90,15 @@ export default class ExamplePlugin extends Plugin {
   }
   */
 }
+
+// Auto-start the plugin when run directly by the Hub as a subprocess.
+// CJS-compatible: when this file is the entry script (not required as a
+// module), start the JSON-RPC stdio transport so the Hub can talk to us.
+declare const require: { main?: unknown } & NodeJS.Require;
+if (typeof require !== 'undefined' && require.main === module) {
+  new ExamplePlugin().start().catch((err: Error) => {
+    process.stderr.write(`Fatal: ${err.stack ?? err}\n`);
+    process.exit(1);
+  });
+}
+
